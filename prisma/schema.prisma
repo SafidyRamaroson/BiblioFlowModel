@@ -1,0 +1,71 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+enum Sexe {
+    MASCULIN
+    FEMININ
+}
+
+model Membre {
+    id String @id @default(uuid())
+    nom String
+    email String @unique
+    sexe Sexe 
+    age Int
+    contact String
+    prets Preter[]
+}
+
+model Livre {
+    id String @id @default(uuid())
+    designation String
+    exemplaire Int
+    preterLivres PreterLivre[]
+    renduLivres RenduLivre[]
+}
+
+model Preter {
+    id String @id @default(uuid())
+    datePret DateTime @default(now())
+    dateRetour DateTime
+    idMembre String
+    preterLivres PreterLivre[]
+    rendus  Rendre[]
+    membre Membre @relation(fields: [idMembre],references: [id])
+}
+
+model PreterLivre {
+    id Int @id @default(autoincrement())
+    idLivre String
+    idPret String
+    quantity Int
+    livre Livre @relation(fields: [idLivre],references: [id])
+    preter Preter @relation(fields: [idPret],references: [id])
+}
+
+model Rendre {
+    id String @id @default(uuid())
+    dateRendu DateTime
+    idPret String
+    renduLivres  RenduLivre[]
+    pret Preter @relation(fields: [idPret],references: [id])
+}
+
+model RenduLivre {
+    id String @id @default(uuid())
+    idRendu String 
+    idLivre String
+    rendre Rendre @relation(fields: [idRendu],references: [id])
+    livre Livre @relation(fields: [idLivre],references: [id])
+    quantity Int
+}
+
+
+
+
