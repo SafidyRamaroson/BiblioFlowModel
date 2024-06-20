@@ -1,0 +1,24 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "BiblioFlow Model",
+  "type": "commonjs",
+  "scripts": {
+    "prisma:format": "prisma format",
+    "prisma:migrate": "prisma migrate dev --skip-seed --preview-feature",
+    "prisma:generate": "prisma generate",
+    "prisma:generate:watch": "prisma generate --watch",
+    "prisma:seed": "ts-node prisma/seed/seed.ts --preview-feature",
+    "prisma:reset": "prisma migrate reset",
+    "prisma:reset:force": "prisma migrate reset -f"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^5.14.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.14.0"
+  }
+}
